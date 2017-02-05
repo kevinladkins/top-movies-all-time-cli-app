@@ -12,4 +12,8 @@ class TopMoviesAllTime::Scraper
     Nokogiri::HTML(open("http://www.boxofficemojo.com/alltime/adjusted.htm"))
   end
 
+  def scrape_lists(list)
+    list.css.("div#main div#body table table tr td[2]")
+  end
+
 end
