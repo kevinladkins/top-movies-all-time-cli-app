@@ -1,0 +1,3 @@
+class TopMoviesAllTime::Scraper
+
+end
