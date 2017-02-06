@@ -7,6 +7,7 @@ class TopMoviesAllTime::Movie
     @title = title
     @url = url
     @@all << self
+    self.set_rankings
   end
 
   def self.all
@@ -28,6 +29,15 @@ class TopMoviesAllTime::Movie
   def self.find_by_title(title)
    self.all.detect {|movie| movie.title == title}
   end
+
+  def set_rankings
+    TopMoviesAllTime::Scraper.new.adjusted_rankings.each do |k, v|
+      if k == self.title
+        self.rank_adjusted = v
+      end
+    end
+  end
+
 
   def self.url_normalizer(url)
     if url.scan(/page=releases/) != []
