@@ -15,13 +15,13 @@ class TopMoviesAllTime::Movie
 
 
   def self.create_from_list(list)
-    if self.find_by_name(title)
-
+    if self.find_by_title(title)
+      self.find_by_title(title).update_attributes(list)
     else
       self.new(
        list.css("td[2] a b").text,
        self.url_normalizer(list.css("td[2] a").attribute("href").value)
-      )
+      ).update_attributes(list)
     end
   end
 
@@ -30,7 +30,11 @@ class TopMoviesAllTime::Movie
   end
 
   def update_attributes(list)
-    
+
+  end
+
+  def url_normalizer(url)
+
   end
 
 end
