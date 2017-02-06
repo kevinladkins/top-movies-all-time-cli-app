@@ -60,10 +60,13 @@ class TopMoviesAllTime::CLI
     puts "Worldwide Gross: #{movie.worldwide_gross}"
     puts "Total Tickets Sold: #{movie.tickets_sold}"
     puts ""
-    puts "Enter back to return to main menu"
+    puts "To view another movie, enter ranking or title."
+    puts "To view antoher list, enter lists."
     input = gets.chomp
-    if input == "back"
-      start
+    if input == "lists"
+      main main_menu
+    else
+      display_movie(input)
     end
   end
 
