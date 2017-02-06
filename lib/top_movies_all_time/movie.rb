@@ -1,5 +1,5 @@
 class TopMoviesAllTime::Movie
-  attr_accessor :title, :url, :rank_adjusted, :rank_domestic, :rank_worldwide, :domestic_gross, :adjusted_gross, :worldwide_gross, :tickets_sold, :release_date
+  attr_accessor :title, :url, :domestic_gross, :adjusted_gross, :worldwide_gross, :tickets_sold, :release_date
 
   @@all = []
 
@@ -7,7 +7,6 @@ class TopMoviesAllTime::Movie
     @title = title
     @url = url
     @@all << self
-    #self.set_rankings
   end
 
   def self.all

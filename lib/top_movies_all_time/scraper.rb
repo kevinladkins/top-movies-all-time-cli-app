@@ -36,6 +36,12 @@ class TopMoviesAllTime::Scraper
     worldwide_rankings
   end
 
+  def self.worldwide_list
+    self.worldwide_rankings.each do |k, v|
+      puts "#{v}. #{k}"
+    end
+  end
+
   def self.scrape_list(list)
     list.css("div#main div#body table table tr")
   end

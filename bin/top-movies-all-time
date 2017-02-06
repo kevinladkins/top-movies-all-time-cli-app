@@ -7,6 +7,4 @@ require_relative '../lib/top_movies_all_time/scraper.rb'
 
 
 
-TopMoviesAllTime::Scraper.make_movies
-
-puts TopMoviesAllTime::Movie.find_by_title("Star Wars")
+TopMoviesAllTime::Scraper.worldwide_list
