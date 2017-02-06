@@ -30,18 +30,6 @@ class TopMoviesAllTime::Movie
    self.all.detect {|movie| movie.title == title}
   end
 
-  def set_rankings
-    if TopMoviesAllTime::Scraper.adjusted_rankings.include? (self.title)
-        self.rank_adjusted = TopMoviesAllTime::Scraper.adjusted_rankings[self.title]
-    end
-    if TopMoviesAllTime::Scraper.domestic_rankings.include? (self.title)
-      self.rank_domestic = TopMoviesAllTime::Scraper.domestic_rankings[self.title]
-    end
-    if TopMoviesAllTime::Scraper.worldwide_rankings.include? (self.title)
-      self.rank_worldwide = TopMoviesAllTime::Scraper.worldwide_rankings[self.title]
-    end
-  end
-
 
   def self.url_normalizer(url)
     if url.scan(/page=releases/) != []
