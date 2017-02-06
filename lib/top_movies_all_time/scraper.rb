@@ -66,8 +66,8 @@ class TopMoviesAllTime::Scraper
     ticket_doc = Nokogiri::HTML(open("#{url}&adjust_yr=1&p=.htm"))
     movie.release_date = doc.xpath('//td[contains(text(), "Release Date")]').css("b").text
     movie.domestic_gross = doc.css("div.mp_box_content table tr[1] td[2] b").text.split("Rank").first
-    movie.adjusted_gross = adjusted_doc.xpath('//b[contains(text(), "Lifetime Adj.")]').text.split.last
     movie.worldwide_gross = doc.css("div.mp_box_content table tr[4] td[2] b").text
+    movie.adjusted_gross = adjusted_doc.xpath('//b[contains(text(), "Lifetime Adj.")]').text.split.last
     movie.tickets_sold = ticket_doc.xpath('//b[contains(text(), "Est. Tickets")]').text.split.last
   end
 
