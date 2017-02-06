@@ -39,24 +39,7 @@ class TopMoviesAllTime::Scraper
     worldwide_rankings
   end
 
-  def self.worldwide_list
-    self.worldwide_rankings.each do |k, v|
-      unless k == ""
-      puts "#{v}. #{k}"
-      end
-    end
-  end
-
-
-
-  def self.adjusted_list
-    self.adjusted_rankings.each do |k, v|
-      unless k == ""
-      puts "#{v}. #{k}"
-      end
-    end
-  end
-
+  
   def self.set_attributes(movie, url)
     doc = Nokogiri::HTML(open(url))
     adjusted_doc = Nokogiri::HTML(open("#{url}&adjust_yr=2017&p=.htm"))

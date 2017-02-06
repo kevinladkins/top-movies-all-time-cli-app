@@ -61,7 +61,7 @@ class TopMoviesAllTime::CLI
     puts "Total Tickets Sold: #{movie.tickets_sold}"
     puts ""
     puts "To view another movie, enter ranking or title."
-    puts "To view antoher list, enter lists."
+    puts "To view another list, enter lists."
     input = gets.chomp
     if input == "lists"
       main main_menu
@@ -87,6 +87,24 @@ class TopMoviesAllTime::CLI
 
   def print_domestic_list
     ranking = TopMoviesAllTime::Scraper.domestic_rankings
+    ranking.each do |k, v|
+      unless k == ""
+      puts "#{k}. #{v}"
+      end
+    end
+  end
+
+  def print_adjusted_list
+    ranking = TopMoviesAllTime::Scraper.adjusted_rankings
+    ranking.each do |k, v|
+      unless k == ""
+      puts "#{k}. #{v}"
+      end
+    end
+  end
+
+  def print_worldwide_list
+    ranking = TopMoviesAllTime::Scraper.worldwide_rankings
     ranking.each do |k, v|
       unless k == ""
       puts "#{k}. #{v}"
