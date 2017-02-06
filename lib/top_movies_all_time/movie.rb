@@ -31,20 +31,14 @@ class TopMoviesAllTime::Movie
   end
 
   def set_rankings
-    TopMoviesAllTime::Scraper.new.adjusted_rankings.each do |k, v|
-      if k == self.title
-        self.rank_adjusted = v
-      end
+    if TopMoviesAllTime::Scraper.adjusted_rankings.include? (self.title)
+        self.rank_adjusted = TopMoviesAllTime::Scraper.adjusted_rankings[self.title]
     end
-    TopMoviesAllTime::Scraper.new.domestic_rankings.each do |k, v|
-      if k == self.title
-        self.rank_domestic = v
-      end
+    if TopMoviesAllTime::Scraper.domestic_rankings.include? (self.title)
+      self.rank_domestic = TopMoviesAllTime::Scraper.domestic_rankings[self.title]
     end
-    TopMoviesAllTime::Scraper.new.worldwide_rankings.each do |k, v|
-      if k == self.title
-        self.rank_worldwide = v
-      end
+    if TopMoviesAllTime::Scraper.worldwide_rankings.include? (self.title)
+      self.rank_worldwide = TopMoviesAllTime::Scraper.worldwide_rankings[self.title]
     end
   end
 
