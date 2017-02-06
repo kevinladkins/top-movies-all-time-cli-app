@@ -18,11 +18,9 @@ class TopMoviesAllTime::Scraper
   end
 
   def make_movies
-    movies = []
     self.scrape_list(self.get_adjusted_list).each do |t|
       TopMoviesAllTime::Movie.create_from_list(t)
     end
-    movies
   end
 
 

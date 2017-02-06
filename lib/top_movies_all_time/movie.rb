@@ -15,8 +15,8 @@ class TopMoviesAllTime::Movie
 
 
   def self.create_from_list(list)
-    if self.find_by_title(title)
-      self.find_by_title(title)
+    if self.find_by_title(list.css("td[2] a b").text)
+      self.find_by_title(list.css("td[2] a b").text)
     else
       self.new(
        list.css("td[2] a b").text,
@@ -29,7 +29,7 @@ class TopMoviesAllTime::Movie
    self.all.detect {|movie| movie.title == title}
   end
 
-  def url_normalizer(url)
+  def self.url_normalizer(url)
     if url.scan(/page=releases/) != []
       "http://www.boxofficemojo.com#{url.split("releases").join("main")}"
     else
