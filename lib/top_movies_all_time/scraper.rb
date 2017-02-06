@@ -1,28 +1,20 @@
 class TopMoviesAllTime::Scraper
 
-  attr_reader = :domestic_list, :worldwide_list, :adjusted_list
-
-  def initialize
-    @domestic_list = Nokogiri::HTML(open("http://www.boxofficemojo.com/alltime/domestic.htm"))
-    @worldwide_list = Nokogiri::HTML(open("http://www.boxofficemojo.com/alltime/world/"))
-    @adjusted_list = Nokogiri::HTML(open("http://www.boxofficemojo.com/alltime/adjusted.htm"))
-  end
-
   def get_domestic_list
-
+    Nokogiri::HTML(open("http://www.boxofficemojo.com/alltime/domestic.htm"))
   end
 
   def get_worldwide_list
-
+    Nokogiri::HTML(open("http://www.boxofficemojo.com/alltime/world/"))
   end
 
   def get_adjusted_list
-
+    Nokogiri::HTML(open("http://www.boxofficemojo.com/alltime/adjusted.htm"))
   end
 
   def adjusted_rankings
     adjusted_rankings = {}
-    self.scrape_list(@adjusted_list).each do |t|
+    self.scrape_list(self.get_adjusted_list).each do |t|
        adjusted_rankings[t.css("td[2] a b").text] = t.css("td[1]").text
     end
     adjusted_rankings
@@ -30,7 +22,7 @@ class TopMoviesAllTime::Scraper
 
   def domestic_rankings
     domestic_rankings = {}
-    self.scrape_list(@domestic_list).each do |t|
+    self.scrape_list(self.get_domestic_list).each do |t|
        domestic_rankings[t.css("td[2] a b").text] = t.css("td[1]").text
     end
     domestic_rankings
@@ -38,7 +30,7 @@ class TopMoviesAllTime::Scraper
 
   def worldwide_rankings
     worldwide_rankings = {}
-    self.scrape_list(@worldwide_list).each do |t|
+    self.scrape_list(self.get_worldwide_list).each do |t|
        worldwide_rankings[t.css("td[2] a b").text] = t.css("td[1]").text
     end
     worldwide_rankings
@@ -49,13 +41,13 @@ class TopMoviesAllTime::Scraper
   end
 
   def make_movies
-    self.scrape_list(@adjusted_list).each do |t|
+    self.scrape_list(self.get_adjusted_list).each do |t|
       TopMoviesAllTime::Movie.create_from_list(t)
     end
-    self.scrape_list(@domestic_list).each do |t|
+    self.scrape_list(self.get_domestic_list).each do |t|
       TopMoviesAllTime::Movie.create_from_list(t)
     end
-    self.scrape_list(@worldwide_list).each do |t|
+    self.scrape_list(self.get_worldwide_list).each do |t|
       TopMoviesAllTime::Movie.create_from_list(t)
     end
   end
