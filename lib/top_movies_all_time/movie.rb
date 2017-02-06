@@ -9,6 +9,10 @@ class TopMoviesAllTime::Movie
     @@all << self
   end
 
+  def self.all
+    @@all
+  end
+
 
   def self.create_from_list(list)
     if self.find_by_name(title)
