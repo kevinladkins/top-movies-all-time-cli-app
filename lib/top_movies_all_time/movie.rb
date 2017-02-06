@@ -18,12 +18,19 @@ class TopMoviesAllTime::Movie
     if self.find_by_name(title)
 
     else
-      self.new
+      self.new(
+       list.css("td[2] a b").text,
+       self.url_normalizer(list.css("td[2] a").attribute("href").value)
+      )
     end
   end
 
   def self.find_by_title(title)
    self.all.detect {|movie| movie.title == title}
+  end
+
+  def update_attributes(list)
+    
   end
 
 end
