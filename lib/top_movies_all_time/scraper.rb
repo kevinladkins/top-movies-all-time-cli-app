@@ -64,8 +64,8 @@ class TopMoviesAllTime::Scraper
     movie.release_date = doc.xpath('//td[contains(text(), "Release Date")]').css("b").text
     movie.domestic_gross = doc.css("div.mp_box_content table tr[1] td[2] b").text.split("Rank").first
     movie.worldwide_gross = doc.css("div.mp_box_content table tr[4] td[2] b").text
-    movie.adjusted_gross = adjusted_doc.xpath('//b[contains(text(), "Lifetime Adj.")]').text.split.last
-    movie.tickets_sold = ticket_doc.xpath('//b[contains(text(), "Est. Tickets")]').text.split.last
+    movie.adjusted_gross = adjusted_doc.xpath('//td[contains(text(), "Lifetime Adj.")]').css("b").text #.split.last
+    movie.tickets_sold = ticket_doc.xpath('//b[contains(text(), "Est. Tickets")]').text #.split.last
   end
 
   def self.scrape_list(list)
