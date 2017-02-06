@@ -7,7 +7,7 @@ class TopMoviesAllTime::Movie
     @title = title
     @url = url
     @@all << self
-    self.set_rankings
+    #self.set_rankings
   end
 
   def self.all

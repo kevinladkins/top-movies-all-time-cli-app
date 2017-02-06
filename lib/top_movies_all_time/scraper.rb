@@ -54,5 +54,3 @@ class TopMoviesAllTime::Scraper
 
 
 end
-
-binding.pry

@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/top-movies-all-time.rb'
+require_relative '../lib/top_movies_all_time/cli.rb'
+require_relative '../lib/top_movies_all_time/movie.rb'
+require_relative '../lib/top_movies_all_time/scraper.rb'
+
+
+
+TopMoviesAllTime::Scraper.make_movies
+
+puts TopMoviesAllTime::Movie.find_by_title("Star Wars")
