@@ -14,15 +14,16 @@ class TopMoviesAllTime::Scraper
 
 
   def scrape_list(list)
-    list.css("div#main div#body table table tr td[2]")
+    list.css("div#main div#body table table tr")
   end
 
   def make_movies
     movies = []
     self.scrape_list(self.get_adjusted_list).each do |t|
       movies << {
-       :title => t.css("a b").text,
-       :url => "http://www.boxofficemojo.com#{t.css("a").attribute("href").value}"
+       :title => t.css("td[2] a b").text,
+       :url => "http://www.boxofficemojo.com#{t.css("td[2] a").attribute("href").value}",
+       :rank_adjusted => t.css("td[1]").text
       }
     end
     movies
