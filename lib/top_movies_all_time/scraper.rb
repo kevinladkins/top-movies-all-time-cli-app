@@ -62,10 +62,13 @@ class TopMoviesAllTime::Scraper
 
   def self.set_attributes(movie, url)
     doc = Nokogiri::HTML(open(url))
-    #movie.release_date = doc.css()
-    #movie.domestic_gross = doc.css()
-    #movie.adjusted_gross = doc.css()
-    #movie.worldwide_gross = doc.css()
+    #puts doc.css("div.mp_box_content table tr[1] td[2] b").text.split("Rank").first
+
+    movie.release_date = doc.xpath('//td[contains(text(), "Release Date")]').css("b").text
+    movie.domestic_gross = doc.css("div.mp_box_content table tr[1] td[2] b").text.split("Rank").first
+    #movie.adjusted_gross =
+    movie.worldwide_gross = doc.css("div.mp_box_content table tr[4] td[2] b").text
+    doc
     #movie.tickets_sold = doc.css()
   end
 
@@ -87,5 +90,4 @@ class TopMoviesAllTime::Scraper
 
 
 end
-
 binding.pry
