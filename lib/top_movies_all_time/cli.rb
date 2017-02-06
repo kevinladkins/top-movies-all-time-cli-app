@@ -1,3 +1,7 @@
+require_relative 'movie.rb'
+require_relative 'scraper.rb'
+require_relative '../top-movies-all-time.rb'
+
 class TopMoviesAllTime::CLI
 
   def call
@@ -71,3 +75,4 @@ class TopMoviesAllTime::CLI
   end
 
 end
+binding.pry

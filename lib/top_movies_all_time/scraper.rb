@@ -17,6 +17,7 @@ class TopMoviesAllTime::Scraper
     self.scrape_list(self.get_adjusted_list).each do |t|
        adjusted_rankings[t.css("td[2] a b").text] = t.css("td[1]").text
     end
+    adjusted.shift
     adjusted_rankings
   end
 
@@ -25,6 +26,7 @@ class TopMoviesAllTime::Scraper
     self.scrape_list(self.get_domestic_list).each do |t|
        domestic_rankings[t.css("td[2] a b").text] = t.css("td[1]").text
     end
+    2.times {domestic_rankings.shift}
     domestic_rankings
   end
 
@@ -33,6 +35,7 @@ class TopMoviesAllTime::Scraper
     self.scrape_list(self.get_worldwide_list).each do |t|
        worldwide_rankings[t.css("td[2] a b").text] = t.css("td[1]").text
     end
+    worldwide_rankings.shift
     worldwide_rankings
   end
 
@@ -83,4 +86,5 @@ class TopMoviesAllTime::Scraper
 
 
 end
+
 binding.pry
