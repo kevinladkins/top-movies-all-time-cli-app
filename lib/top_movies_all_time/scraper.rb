@@ -10,16 +10,16 @@ class TopMoviesAllTime::Scraper
 
   def get_adjusted_list
     html = Nokogiri::HTML(open("http://www.boxofficemojo.com/alltime/adjusted.htm"))
-    html
+    html.css.("div#main div#body table table tr td[2]")
   end
 
-  def scrape_list(list)
-    list.css.("div#main div#body table table tr td[2]")
+  def scrape_list
+
   end
 
   def make_movies
     movies = []
-    self.scrape_list(get_adjusted_list).each do |t|
+    self.get_adjusted_list.each do |t|
       movies << {
         :title => t.css("a b").text,
         :url => "http://www.boxofficemojo.com#{t.css("a").attribute("href").value}"
@@ -27,7 +27,7 @@ class TopMoviesAllTime::Scraper
     end
     movies
   end
-  
+
 
 end
 
