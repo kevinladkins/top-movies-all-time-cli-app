@@ -22,7 +22,25 @@ class TopMoviesAllTime::CLI
       end
     puts "To see more information, enter a movie by ranking or title"
     input = gets.chomp
-    find_movie(input)
+    display_movie(input)
+  end
+
+  def display_movie(input)
+    movie = find_movie(input)
+    puts "--------------#{movie.title}--------------"
+    puts " "
+    puts "RELEASE DATE: #{movie.release_date}"
+    puts " "
+    puts "US Domestic Gross: #{movie.domestic_gross}"
+    puts "US Domestic Gross (Inflation-Adjusted): #{movie.adjusted_gross}"
+    puts "Worldwide Gross: #{movie.worldwide_gross}"
+    puts "Total Tickets Sold: #{movie.tickets_sold}"
+    puts ""
+    puts "Enter back to return to main menu"
+    input = gets.chomp
+    if input == "back"
+      start
+    end
   end
 
   def find_movie(input)
@@ -33,7 +51,7 @@ class TopMoviesAllTime::CLI
     elsif input.to_i > 0 && input.to_i < 101
       TopMoviesAllTime::Scraper.domestic_rankings.detect do |k, v|
         v == input
-        movie = TopMoviesAllTime::Movie.find_by_title(v)
+        movie = TopMoviesAllTime::Movie.find_by_title(k)
         movie.populate_attributes
         movie
       end
@@ -42,9 +60,6 @@ class TopMoviesAllTime::CLI
     end
   end
 
-
-
-  end
 
   def print_domestic_list
     ranking = TopMoviesAllTime::Scraper.domestic_rankings
