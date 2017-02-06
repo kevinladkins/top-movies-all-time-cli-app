@@ -3,4 +3,9 @@ class TopMoviesAllTime::Movie
 
   @@all = []
 
+  def initialize(title, url)
+    @title = title
+    @url = url
+  end
+
 end
