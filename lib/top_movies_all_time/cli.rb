@@ -53,13 +53,9 @@ class TopMoviesAllTime::CLI
       movie.populate_attributes
       movie
     elsif input.to_i > 0 && input.to_i < 101
-      TopMoviesAllTime::Scraper.domestic_rankings.detect do |k, v|
-        if v == input
-          movie = TopMoviesAllTime::Movie.find_by_title(k)
-          movie.populate_attributes
-          movie
-        end
-      end
+      movie = TopMoviesAllTime::Movie.find_by_title(TopMoviesAllTime::Scraper.domestic_rankings[input])
+      movie.populate_attributes
+      movie
     else
       puts "Please enter a valid title or ranking"
     end
@@ -70,10 +66,9 @@ class TopMoviesAllTime::CLI
     ranking = TopMoviesAllTime::Scraper.domestic_rankings
     ranking.each do |k, v|
       unless k == ""
-      puts "#{v}. #{k}"
+      puts "#{k}. #{v}"
       end
     end
   end
 
 end
-binding.pry
