@@ -60,6 +60,15 @@ class TopMoviesAllTime::Scraper
     end
   end
 
+  def self.set_attributes(movie, url)
+    doc = Nokogiri::HTML(open(url))
+    #movie.release_date = doc.css()
+    #movie.domestic_gross = doc.css()
+    #movie.adjusted_gross = doc.css()
+    #movie.worldwide_gross = doc.css()
+    #movie.tickets_sold = doc.css()
+  end
+
   def self.scrape_list(list)
     list.css("div#main div#body table table tr")
   end
@@ -78,3 +87,5 @@ class TopMoviesAllTime::Scraper
 
 
 end
+
+binding.pry
