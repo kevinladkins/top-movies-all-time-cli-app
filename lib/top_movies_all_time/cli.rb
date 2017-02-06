@@ -17,17 +17,29 @@ class TopMoviesAllTime::CLI
     puts "2. US Domestic Box Office - Adjusted for Inflation"
     puts "3. Worldwide Box Office"
     input = gets.chomp
-      if input == "1" || input == "US Domestic Box Office"
-        print_domestic_list
-      elsif input == "2" || input == "US Domestic Box Office - Adjusted for Inflation"
-        print_adjusted_list
-      elsif input == "3" || input == "Worldwide Box Office"
-        print_worldwide_list
-      end
-    puts "To see more information, enter a movie by ranking or title"
-    input = gets.chomp
-    display_movie(input)
+    choose_list(input)
   end
+
+  def choose_list(input)
+    if input == "1" || input == "US Domestic Box Office"
+      print_domestic_list
+    elsif input == "2" || input == "US Domestic Box Office - Adjusted for Inflation"
+      print_adjusted_list
+    elsif input == "3" || input == "Worldwide Box Office"
+      print_worldwide_list
+    end
+  puts "To see more information, enter a movie by ranking or title"
+  puts "To choose another list, enter list. To exit, enter exit."
+    input = gets.chomp
+    unless input == "exit"
+      if input == "list"
+        main_menu
+      else
+      display_movie(input)
+      end
+    end
+  end
+
 
   def display_movie(input)
     movie = find_movie(input)
@@ -70,5 +82,7 @@ class TopMoviesAllTime::CLI
       end
     end
   end
+
+
 
 end
