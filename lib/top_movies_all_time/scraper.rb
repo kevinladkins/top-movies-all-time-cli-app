@@ -12,6 +12,14 @@ class TopMoviesAllTime::Scraper
     Nokogiri::HTML(open("http://www.boxofficemojo.com/alltime/adjusted.htm"))
   end
 
+  def adjusted_rankings
+    adjusted_rankings = {}
+    self.scrape_list(self.get_adjusted_list).each do |t|
+       adjusted_rankings[t.css("td[2] a b").text] = t.css("td[1]").text
+    end
+    adjusted_rankings
+  end
+
 
   def scrape_list(list)
     list.css("div#main div#body table table tr")
