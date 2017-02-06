@@ -4,6 +4,8 @@ require_relative '../top-movies-all-time.rb'
 
 class TopMoviesAllTime::CLI
 
+  @mode = " "
+
   def call
     start
   end
@@ -30,17 +32,20 @@ class TopMoviesAllTime::CLI
 
   def choose_list(input)
     if input == "1" || input == "US Domestic Box Office"
+      @mode = TopMoviesAllTime::Scraper.domestic_rankings
       print_domestic_list
     elsif input == "2" || input == "US Domestic Box Office - Adjusted for Inflation"
+      @mode = TopMoviesAllTime::Scraper.adjusted_rankings
       print_adjusted_list
     elsif input == "3" || input == "Worldwide Box Office"
+      @mode = TopMoviesAllTime::Scraper.worldwide_rankings
       print_worldwide_list
     end
   puts "To see more information, enter a movie by ranking or title"
-  puts "To choose another list, enter list. To exit, enter exit."
+  puts "To choose another list, enter lists. To exit, enter exit."
     input = gets.chomp
     unless input == "exit"
-      if input == "list"
+      if input == "lists"
         main_menu
       else
       display_movie(input)
@@ -75,8 +80,8 @@ class TopMoviesAllTime::CLI
       movie = TopMoviesAllTime::Movie.find_by_title(input)
       movie.populate_attributes
       movie
-    elsif input.to_i > 0 && input.to_i < 101
-      movie = TopMoviesAllTime::Movie.find_by_title(TopMoviesAllTime::Scraper.domestic_rankings[input])
+    elsif input.to_i > 0 
+      movie = TopMoviesAllTime::Movie.find_by_title(@mode[input])
       movie.populate_attributes
       movie
     else
