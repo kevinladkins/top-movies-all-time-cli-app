@@ -36,6 +36,16 @@ class TopMoviesAllTime::Movie
         self.rank_adjusted = v
       end
     end
+    TopMoviesAllTime::Scraper.new.domestic_rankings.each do |k, v|
+      if k == self.title
+        self.rank_domestic = v
+      end
+    end
+    TopMoviesAllTime::Scraper.new.worldwide_rankings.each do |k, v|
+      if k == self.title
+        self.rank_worldwide = v
+      end
+    end
   end
 
 
