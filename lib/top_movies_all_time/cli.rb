@@ -5,6 +5,7 @@ class TopMoviesAllTime::CLI
   end
 
   def start
+    TopMoviesAllTime::Scraper.make_movies
     puts "--------------TOP MOVIES OF ALL TIME--------------"
     puts "Welcome! Which list would you like to see?"
     puts " "
@@ -12,7 +13,6 @@ class TopMoviesAllTime::CLI
     puts "2. US Domestic Box Office - Adjusted for Inflation"
     puts "3. Worldwide Box Office"
     input = gets.chomp
-    while input != "exit"
       if input == "1" || input == "US Domestic Box Office"
         print_domestic_list
       elsif input == "2" || input == "US Domestic Box Office - Adjusted for Inflation"
@@ -20,9 +20,30 @@ class TopMoviesAllTime::CLI
       elsif input == "3" || input == "Worldwide Box Office"
         print_worldwide_list
       end
-      puts "To see more information, enter a movie by ranking or title"
+    puts "To see more information, enter a movie by ranking or title"
+    input = gets.chomp
+    find_movie(input)
+  end
+
+  def find_movie(input)
+    if input.to_i == 0
+      movie = TopMoviesAllTime::Movie.find_by_title(input)
+      movie.populate_attributes
+      movie
+    elsif input.to_i > 0 && input.to_i < 101
+      TopMoviesAllTime::Scraper.domestic_rankings.detect do |k, v|
+        v == input
+        movie = TopMoviesAllTime::Movie.find_by_title(v)
+        movie.populate_attributes
+        movie
+      end
+    else
+      puts "Please enter a valid title or ranking"
     end
-    puts "Thanks for stopping by!"
+  end
+
+
+
   end
 
   def print_domestic_list
