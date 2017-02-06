@@ -33,13 +33,13 @@ class TopMoviesAllTime::CLI
   def choose_list(input)
     if input == "1" || input == "US Domestic Box Office"
       @mode = TopMoviesAllTime::Scraper.domestic_rankings
-      print_domestic_list
+      print_list
     elsif input == "2" || input == "US Domestic Box Office - Adjusted for Inflation"
       @mode = TopMoviesAllTime::Scraper.adjusted_rankings
-      print_adjusted_list
+      print_list
     elsif input == "3" || input == "Worldwide Box Office"
       @mode = TopMoviesAllTime::Scraper.worldwide_rankings
-      print_worldwide_list
+      print_list
     end
   puts "To see more information, enter a movie by ranking or title"
   puts "To choose another list, enter lists. To exit, enter exit."
@@ -77,46 +77,35 @@ class TopMoviesAllTime::CLI
 
   def find_movie(input)
     if input.to_i == 0
-      movie = TopMoviesAllTime::Movie.find_by_title(input)
-      movie.populate_attributes
-      movie
-    elsif input.to_i > 0 
-      movie = TopMoviesAllTime::Movie.find_by_title(@mode[input])
-      movie.populate_attributes
-      movie
-    else
-      puts "Please enter a valid title or ranking"
-    end
-  end
-
-
-  def print_domestic_list
-    ranking = TopMoviesAllTime::Scraper.domestic_rankings
-    ranking.each do |k, v|
-      unless k == ""
-      puts "#{k}. #{v}"
+      if TopMoviesAllTime::Movie.find_by_title(input) == nil
+        puts "Please enter a valid title or ranking, or lists to return to lists."
+        input = gets.chomp
+        input == "lists" ? main_menu : find_movie(input)
+      else
+        movie = TopMoviesAllTime::Movie.find_by_title(input)
+        movie.populate_attributes
+        movie
       end
-    end
-  end
-
-  def print_adjusted_list
-    ranking = TopMoviesAllTime::Scraper.adjusted_rankings
-    ranking.each do |k, v|
-      unless k == ""
-      puts "#{k}. #{v}"
-      end
-    end
-  end
-
-  def print_worldwide_list
-    ranking = TopMoviesAllTime::Scraper.worldwide_rankings
-    ranking.each do |k, v|
-      unless k == ""
-      puts "#{k}. #{v}"
+    elsif input.to_i > 0
+      if TopMoviesAllTime::Movie.find_by_title(@mode[input]) == nil
+        puts "Please enter a valid title or ranking, or lists to return to lists."
+        input = gets.chomp
+        input == "lists" ? main_menu : find_movie(input)
+      else
+        movie = TopMoviesAllTime::Movie.find_by_title(@mode[input])
+        movie.populate_attributes
+        movie
       end
     end
   end
 
 
+  def print_list
+    @mode.each do |k, v|
+      unless k == ""
+      puts "#{k}. #{v}"
+      end
+    end
+  end
 
 end
