@@ -20,6 +20,21 @@ class TopMoviesAllTime::Scraper
     adjusted_rankings
   end
 
+  def domestic_rankings
+    domestic_rankings = {}
+    self.scrape_list(self.get_domestic_list).each do |t|
+       domestic_rankings[t.css("td[2] a b").text] = t.css("td[1]").text
+    end
+    domestic_rankings
+  end
+
+  def worldwide_rankings
+    worldwide_rankings = {}
+    self.scrape_list(self.get_worldwide_list).each do |t|
+       worldwide_rankings[t.css("td[2] a b").text] = t.css("td[1]").text
+    end
+    worldwide_rankings
+  end
 
   def scrape_list(list)
     list.css("div#main div#body table table tr")
