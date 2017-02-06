@@ -21,6 +21,12 @@ class TopMoviesAllTime::Scraper
     self.scrape_list(self.get_adjusted_list).each do |t|
       TopMoviesAllTime::Movie.create_from_list(t)
     end
+    self.scrape_list(self.get_domestic_list).each do |t|
+      TopMoviesAllTime::Movie.create_from_list(t)
+    end
+    self.scrape_list(self.get_worldwide_list).each do |t|
+      TopMoviesAllTime::Movie.create_from_list(t)
+    end
   end
 
 
