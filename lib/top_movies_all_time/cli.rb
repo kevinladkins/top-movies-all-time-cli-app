@@ -11,14 +11,22 @@ class TopMoviesAllTime::CLI
   def start
     TopMoviesAllTime::Scraper.make_movies
     puts "--------------TOP MOVIES OF ALL TIME--------------"
-    puts "Welcome! Which list would you like to see?"
+    puts " "
+    puts "Welcome!"
+    puts " "
+    main_menu
+  end
+
+  def main_menu
+    puts "Which list would you like to see?"
     puts " "
     puts "1. US Domestic Box Office"
     puts "2. US Domestic Box Office - Adjusted for Inflation"
     puts "3. Worldwide Box Office"
     input = gets.chomp
-    choose_list(input)
+    choose_list(input) unless input == "exit"
   end
+
 
   def choose_list(input)
     if input == "1" || input == "US Domestic Box Office"
