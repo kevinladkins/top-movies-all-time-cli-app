@@ -9,4 +9,17 @@ class TopMoviesAllTime::Movie
     @@all << self
   end
 
+
+  def self.create_from_list(list)
+    if self.find_by_name(title)
+
+    else
+      self.new
+    end
+  end
+
+  def self.find_by_title(title)
+   self.all.detect {|movie| movie.title == title}
+  end
+
 end
