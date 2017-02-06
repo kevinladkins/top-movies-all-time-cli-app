@@ -13,6 +13,10 @@ class TopMoviesAllTime::Movie
     @@all
   end
 
+  def populate_attributes
+    TopMoviesAllTime::Scraper.set_attributes(self, self.url)
+  end
+
 
   def self.create_from_list(list)
     if self.find_by_title(list.css("td[2] a b").text)
