@@ -38,7 +38,9 @@ class TopMoviesAllTime::Scraper
 
   def self.worldwide_list
     self.worldwide_rankings.each do |k, v|
+      unless k == ""
       puts "#{v}. #{k}"
+      end
     end
   end
 
