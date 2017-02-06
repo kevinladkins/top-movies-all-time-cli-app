@@ -17,7 +17,7 @@ class TopMoviesAllTime::Scraper
     self.scrape_list(self.get_adjusted_list).each do |t|
        adjusted_rankings[t.css("td[1]").text] = t.css("td[2] a b").text
     end
-    adjusted.shift
+    adjusted_rankings.shift
     adjusted_rankings
   end
 
@@ -39,7 +39,7 @@ class TopMoviesAllTime::Scraper
     worldwide_rankings
   end
 
-  
+
   def self.set_attributes(movie, url)
     doc = Nokogiri::HTML(open(url))
     adjusted_doc = Nokogiri::HTML(open("#{url}&adjust_yr=2017&p=.htm"))
