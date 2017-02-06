@@ -20,11 +20,7 @@ class TopMoviesAllTime::Scraper
   def make_movies
     movies = []
     self.scrape_list(self.get_adjusted_list).each do |t|
-      movies << {
-       :title => t.css("td[2] a b").text,
-       :url => "http://www.boxofficemojo.com#{t.css("td[2] a").attribute("href").value}",
-       :rank_adjusted => t.css("td[1]").text
-      }
+      Movie.create_from_list(t)
     end
     movies
   end
