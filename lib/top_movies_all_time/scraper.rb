@@ -44,13 +44,7 @@ class TopMoviesAllTime::Scraper
     end
   end
 
-  def self.domestic_list
-    self.domestic_rankings.each do |k, v|
-      unless k == ""
-      puts "#{v}. #{k}"
-      end
-    end
-  end
+
 
   def self.adjusted_list
     self.adjusted_rankings.each do |k, v|

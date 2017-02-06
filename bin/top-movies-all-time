@@ -1,11 +1,10 @@
 #!/usr/bin/env ruby
 
+
+
 require_relative '../lib/top-movies-all-time.rb'
 require_relative '../lib/top_movies_all_time/cli.rb'
 require_relative '../lib/top_movies_all_time/movie.rb'
 require_relative '../lib/top_movies_all_time/scraper.rb'
 
-
-TopMoviesAllTime::Scraper.make_movies
-TopMoviesAllTime::Scraper.worldwide_list
-TopMoviesAllTime::Scraper.set_attributes(TopMoviesAllTime::Movie.find_by_title("Jurassic World"), TopMoviesAllTime::Movie.find_by_title("Jurassic World").url)
+TopMoviesAllTime::CLI.new.call

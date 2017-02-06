@@ -19,15 +19,19 @@ class TopMoviesAllTime::CLI
         print_adjusted_list
       elsif input == "3" || input == "Worldwide Box Office"
         print_worldwide_list
-      else
-        start
       end
+      puts "To see more information, enter a movie by ranking or title"
     end
     puts "Thanks for stopping by!"
   end
 
   def print_domestic_list
-    puts TopMoviesAllTime::Scraper.domestic_rankings
+    ranking = TopMoviesAllTime::Scraper.domestic_rankings
+    ranking.each do |k, v|
+      unless k == ""
+      puts "#{v}. #{k}"
+      end
+    end
   end
 
 end
