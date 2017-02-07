@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.email         = ["kevinladkins@gmail.com"]
 
   spec.summary       = %q{top-grossing movies of all time}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.description   = %q{top-grossing movies of all time (domestic, worldwide, and inflation-adjusted)}
+  spec.homepage      = "https://github.com/kevinladkins/top-movies-all-time-cli-app"
   spec.license       = "MIT"
 
 
@@ -20,4 +20,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "nokogiri", ">= 0"
   spec.add_development_dependency "pry", ">= 0"
+  spec.add_development_dependency "colorize", ">=0"
 end

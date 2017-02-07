@@ -7,4 +7,5 @@ require_relative '../lib/top_movies_all_time/cli.rb'
 require_relative '../lib/top_movies_all_time/movie.rb'
 require_relative '../lib/top_movies_all_time/scraper.rb'
 
+
 TopMoviesAllTime::CLI.new.call
