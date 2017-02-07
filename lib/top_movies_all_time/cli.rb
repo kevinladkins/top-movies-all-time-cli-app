@@ -28,10 +28,12 @@ class TopMoviesAllTime::CLI
       puts "2." + "US Domestic Box Office - Adjusted for Inflation".colorize(:light_blue)
       puts "3." + "Worldwide Box Office".colorize(:light_blue)
       input = gets.chomp
-      if input != "exit"
-        choose_list(input)
-      end
-      puts "Thanks for dropping by!"
+      input == "exit" ? goodbye : choose_list(input)
+  end
+
+  def goodbye
+    puts " "
+    puts "Thanks for dropping by!"
   end
 
 
@@ -50,12 +52,13 @@ class TopMoviesAllTime::CLI
   puts "To see more information, enter a movie by " + "ranking ".colorize(:light_blue) + "or " + "title.".colorize(:light_blue)
   puts "To choose another list, enter " + "lists".colorize(:light_blue) + ". To exit, enter" + " exit.".colorize(:light_blue)
     input = gets.chomp
-    unless input == "exit"
-      if input == "lists"
+    if input == "exit"
+       goodbye
+    elsif
+      input == "lists"
         main_menu
-      else
+    else
       display_movie(input)
-      end
     end
   end
 
@@ -74,11 +77,10 @@ class TopMoviesAllTime::CLI
     puts "To view another movie, enter " + "ranking ".colorize(:light_blue) + "or " + "title.".colorize(:light_blue)
     puts "To view another list, enter " + "lists.".colorize(:light_blue)
     input = gets.chomp
-    if input == "lists"
-      main_menu
-    else
-      display_movie(input)
+    until input == "exit"
+      input == "lists" ? main_menu : display_movie(input)
     end
+    goodbye
   end
 
   def find_movie(input)
@@ -107,11 +109,7 @@ class TopMoviesAllTime::CLI
 
 
   def print_list
-    @mode.each do |k, v|
-      unless k == ""
-      puts "#{k}. ".colorize(:light_blue) + "#{v}"
-      end
-    end
+    @mode.each {|k, v| puts "#{k}. ".colorize(:light_blue) + "#{v}" unless k.to_i > 100}
   end
 
 end
