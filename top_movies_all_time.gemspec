@@ -13,6 +13,7 @@ Gem::Specification.new do |spec|
   spec.description   = %q{top-grossing movies of all time (domestic, worldwide, and inflation-adjusted)}
   spec.homepage      = "https://github.com/kevinladkins/top-movies-all-time-cli-app"
   spec.license       = "MIT"
+  spec.executables << 'top-movies-all-time'
 
 
   spec.add_development_dependency "bundler", "~> 1.13"
