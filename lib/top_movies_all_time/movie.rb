@@ -33,6 +33,7 @@ class TopMoviesAllTime::Movie
    self.all.detect {|movie| movie.title == title}
   end
 
+ private
 
   def self.url_normalizer(url)
     if url.scan(/page=releases/) != []

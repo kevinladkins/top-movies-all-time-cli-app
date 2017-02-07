@@ -63,7 +63,7 @@ class TopMoviesAllTime::CLI
     puts " "
     puts "US Domestic Gross: " + "#{movie.domestic_gross}".colorize(:light_blue)
     puts "US Domestic Gross (Inflation-Adjusted): " + "#{movie.adjusted_gross}".colorize(:light_blue)
-    puts "Worldwide Gross: " + "#{movie.worldwide_gross}".colorize(:light_blue)
+    puts "Worldwide Gross: " + "#{movie.worldwide_gross}".colorize(:light_blue) 
     puts "Total Tickets Sold: " + "#{movie.tickets_sold}".colorize(:light_blue)
     puts ""
     puts "To view another movie, enter " + "ranking ".colorize(:light_blue) + "or " + "title.".colorize(:light_blue)
