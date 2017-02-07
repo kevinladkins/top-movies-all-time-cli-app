@@ -42,13 +42,14 @@ class TopMoviesAllTime::Scraper
 
   def self.set_attributes(movie, url)
     doc = Nokogiri::HTML(open(url))
-    adjusted_doc = Nokogiri::HTML(open("#{url}&adjust_yr=2017&p=.htm"))
-    ticket_doc = Nokogiri::HTML(open("#{url}&adjust_yr=1&p=.htm"))
+    adjusted_doc = Nokogiri::HTML(open(url + "&adjust_yr=2017&p=.htm"))
+    ticket_doc = Nokogiri::HTML(open(url + "&adjust_yr=1&p=.htm"))
     movie.release_date = doc.xpath('//td[contains(text(), "Release Date")]').css("b").text
-    movie.domestic_gross = doc.css("div.mp_box_content table tr[1] td[2] b").text.split("Rank").first
-    movie.worldwide_gross = doc.css("div.mp_box_content table tr[4] td[2] b").text
-    movie.adjusted_gross = adjusted_doc.xpath('//td[contains(text(), "Lifetime Adj.")]').css("b").text #.split.last
-    movie.tickets_sold = ticket_doc.xpath('//b[contains(text(), "Est. Tickets")]').text #.split.last
+    #movie.domestic_gross = doc.css("div.mp_box_content table tr[1] td[2] b").text.split("Rank").first
+    movie.domestic_gross = doc.xpath('//font[contains(text(), "Domestic Total Gross")]').css("b").text #.split.last
+    movie.worldwide_gross = doc.css("div.mp_box_content table tr[4] td[2] b").text.split("Rank").first
+    movie.adjusted_gross = adjusted_doc.xpath('//font[contains(text(), "Adj.")]').css("b").text #.split.last
+    movie.tickets_sold = ticket_doc.xpath('//font[contains(text(), "Est. Tickets")]').css("b").text #.split.last
   end
 
   def self.scrape_list(list)
