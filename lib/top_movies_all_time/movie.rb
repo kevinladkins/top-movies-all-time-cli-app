@@ -6,7 +6,7 @@ class TopMoviesAllTime::Movie
   def initialize(title, url)
     @title = title
     @url = url
-    @worldwide_gross = n/a
+    @worldwide_gross = "n/a"
     @@all << self
   end
 
