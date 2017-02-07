@@ -1,8 +1,8 @@
 require "spec_helper"
 
-describe Top::Movies::All::Time do
+describe TopMoviesAllTime do
   it "has a version number" do
-    expect(Top::Movies::All::Time::VERSION).not_to be nil
+    expect(TopMoviesAllTime::VERSION).not_to be nil
   end
 
   it "does something useful" do

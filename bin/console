@@ -1,6 +1,7 @@
-require "bundler/setup"
-require "top-movies-all-time"
+#!/usr/bin/env ruby
 
+require "bundler/setup"
+require "top_movies_all_time"
 
 require "irb"
 IRB.start
