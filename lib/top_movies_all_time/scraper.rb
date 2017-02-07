@@ -26,7 +26,7 @@ class TopMoviesAllTime::Scraper
     self.scrape_list(self.get_domestic_list).each do |t|
        domestic_rankings[t.css("td[1]").text] = t.css("td[2] a b").text
     end
-    2.times {domestic_rankings.shift}
+    5.times {domestic_rankings.shift}
     domestic_rankings
   end
 
@@ -69,4 +69,3 @@ class TopMoviesAllTime::Scraper
 
 
 end
-binding.pry
