@@ -1,10 +1,6 @@
 # TopMoviesAllTime
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/top_movies_all_time`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
-Cli app showing the top-grossing movies of all time (domestic, worldwide, and inflation-adjusted)
+This gem lists the top-grossing movies of all time by US box-office, US box-office adjusted for inflation, and international box-office.
 
 ## Installation
 
@@ -24,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-
+After installing the gem, enter `top-movies-all-time` and follow the onscreen prompts.
 
 ## Development
 
