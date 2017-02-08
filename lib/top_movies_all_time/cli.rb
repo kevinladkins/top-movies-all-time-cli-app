@@ -1,7 +1,7 @@
-require_relative 'movie.rb'
-require_relative 'scraper.rb'
-require_relative '../top-movies-all-time.rb'
-require 'colorize'
+#require_relative 'movie.rb'
+#require_relative 'scraper.rb'
+#require_relative '../top-movies-all-time.rb'
+#require 'colorize'
 
 class TopMoviesAllTime::CLI
 
@@ -15,7 +15,7 @@ class TopMoviesAllTime::CLI
     TopMoviesAllTime::Scraper.make_movies
     puts " "
     puts " "
-    puts "--------------TOP MOVIES OF ALL TIME--------------".colorize(:red)
+    puts "--------------".colorize(:red) + "TOP MOVIES OF ALL TIME" + "--------------".colorize(:red)
     puts "Welcome!"
     main_menu
   end
@@ -24,9 +24,9 @@ class TopMoviesAllTime::CLI
       puts " "
       puts "Which list would you like to see?"
       puts " "
-      puts "1. " + "US Domestic Box Office".colorize(:light_blue)
-      puts "2. " + "US Domestic Box Office - Adjusted for Inflation".colorize(:light_blue)
-      puts "3. " + "Worldwide Box Office".colorize(:light_blue)
+      puts "1. ".colorize(:light_blue) + "US Domestic Box Office"
+      puts "2. ".colorize(:light_blue) + "US Domestic Box Office - Adjusted for Inflation"
+      puts "3. ".colorize(:light_blue) + "Worldwide Box Office"
       input = gets.chomp
       input == "exit" ? goodbye : choose_list(input)
   end
@@ -57,12 +57,12 @@ class TopMoviesAllTime::CLI
     movie = find_movie(input)
     puts "--------------".colorize(:red) + "#{movie.title}" + "--------------".colorize(:red)
     puts " "
-    puts "RELEASE DATE: " + "#{movie.release_date}".colorize(:light_blue)
+    puts "RELEASE DATE: " + "#{movie.release_date}"
     puts " "
-    puts "US Domestic Gross: " + "#{movie.domestic_gross}".colorize(:light_blue)
-    puts "US Domestic Gross (Inflation-Adjusted): " + "#{movie.adjusted_gross}".colorize(:light_blue)
-    puts "Worldwide Gross: " + "#{movie.worldwide_gross}".colorize(:light_blue)
-    puts "Total Tickets Sold: " + "#{movie.tickets_sold}".colorize(:light_blue)
+    puts "US Domestic Gross: #{movie.domestic_gross}"
+    puts "US Domestic Gross (Inflation-Adjusted): #{movie.adjusted_gross}"
+    puts "Worldwide Gross: #{movie.worldwide_gross}"
+    puts "Total Tickets Sold: #{movie.tickets_sold}"
     puts ""
     puts "To view another movie, enter " + "ranking ".colorize(:light_blue) + "or " + "title.".colorize(:light_blue)
     puts "To view another list, enter " + "lists.".colorize(:light_blue)
