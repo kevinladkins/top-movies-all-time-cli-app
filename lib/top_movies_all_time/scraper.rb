@@ -59,14 +59,10 @@ class TopMoviesAllTime::Scraper
   end
 
   def self.url_normalizer(url)
-    if url.scan(/page=releases/) != []
-      "http://www.boxofficemojo.com#{url.split("releases").join("main")}"
-    else
-      "http://www.boxofficemojo.com#{url}"
-    end
+    url.scan(/page=releases/) == [] ? "http://www.boxofficemojo.com#{url}" : "http://www.boxofficemojo.com#{url.split("releases").join("main")}"
   end
 
 
-binding.pry
+#binding.pry
 
 end
