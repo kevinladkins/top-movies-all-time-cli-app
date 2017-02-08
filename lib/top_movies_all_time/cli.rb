@@ -48,9 +48,7 @@ class TopMoviesAllTime::CLI
   puts "To see more information, enter a movie by " + "ranking ".colorize(:light_blue) + "or " + "title.".colorize(:light_blue)
   puts "To choose another list, enter " + "lists".colorize(:light_blue) + ". To exit, enter" + " exit.".colorize(:light_blue)
     input = gets.chomp
-    while input != "exit"
-      input == "lists" ? main_menu : display_movie(input)
-    end
+    input == "lists" ? main_menu : display_movie(input) unless input == "exit"
     goodbye
   end
 
@@ -63,15 +61,13 @@ class TopMoviesAllTime::CLI
     puts " "
     puts "US Domestic Gross: " + "#{movie.domestic_gross}".colorize(:light_blue)
     puts "US Domestic Gross (Inflation-Adjusted): " + "#{movie.adjusted_gross}".colorize(:light_blue)
-    puts "Worldwide Gross: " + "#{movie.worldwide_gross}".colorize(:light_blue) 
+    puts "Worldwide Gross: " + "#{movie.worldwide_gross}".colorize(:light_blue)
     puts "Total Tickets Sold: " + "#{movie.tickets_sold}".colorize(:light_blue)
     puts ""
     puts "To view another movie, enter " + "ranking ".colorize(:light_blue) + "or " + "title.".colorize(:light_blue)
     puts "To view another list, enter " + "lists.".colorize(:light_blue)
     input = gets.chomp
-    while input != "exit"
-      input == "lists" ? main_menu : display_movie(input)
-    end
+    input == "lists" ? main_menu : display_movie(input) unless input == "exit"
     goodbye
     end
 
@@ -80,17 +76,15 @@ class TopMoviesAllTime::CLI
       if TopMoviesAllTime::Movie.find_by_title(input) == nil
         input_error
       else
-        movie = TopMoviesAllTime::Movie.find_by_title(input)
-        movie.populate_attributes
-        movie
+        TopMoviesAllTime::Movie.find_by_title(input).populate_attributes
+        TopMoviesAllTime::Movie.find_by_title(input)
       end
     elsif input.to_i > 0
       if TopMoviesAllTime::Movie.find_by_title(@mode[input]) == nil
         input_error
       else
-        movie = TopMoviesAllTime::Movie.find_by_title(@mode[input])
-        movie.populate_attributes
-        movie
+        TopMoviesAllTime::Movie.find_by_title(@mode[input]).populate_attributes
+        TopMoviesAllTime::Movie.find_by_title(@mode[input])
       end
     end
   end
@@ -102,11 +96,10 @@ class TopMoviesAllTime::CLI
   end
 
   def input_error
+    puts " "
     puts "Please enter a valid title or ranking, or " + "lists".colorize(:light_blue) + " to return to lists."
     input = gets.chomp
-    while input != "exit"
-      input == "lists" ? main_menu : find_movie(input)
-    end
+    input == "lists" ? main_menu : find_movie(input) unless input == "exit"
     goodbye
   end
 
