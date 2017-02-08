@@ -62,7 +62,4 @@ class TopMoviesAllTime::Scraper
     movie.tickets_sold = ticket_doc.xpath('//font[contains(text(), "Est. Tickets")]').css("b").text
   end
 
-
-#binding.pry
-
 end

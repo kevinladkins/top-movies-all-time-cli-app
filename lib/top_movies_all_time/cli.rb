@@ -1,8 +1,3 @@
-#require_relative 'movie.rb'
-#require_relative 'scraper.rb'
-#require_relative '../top-movies-all-time.rb'
-#require 'colorize'
-
 class TopMoviesAllTime::CLI
 
   @mode = " "

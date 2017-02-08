@@ -1,4 +1,5 @@
 class TopMoviesAllTime::Movie
+
   attr_accessor :title, :url, :domestic_gross, :adjusted_gross, :worldwide_gross, :tickets_sold, :release_date
 
   @@all = []
