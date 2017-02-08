@@ -14,31 +14,24 @@ class TopMoviesAllTime::Scraper
 
   def self.adjusted_rankings
     adjusted_rankings = {}
-    self.scrape_list(self.get_adjusted_list).each do |t|
-       adjusted_rankings[t.css("td[1]").text] = t.css("td[2] a b").text
-    end
+    scrape_list(get_adjusted_list).each {|t| adjusted_rankings[t.css("td[1]").text] = t.css("td[2] a b").text}
     adjusted_rankings.shift
     adjusted_rankings
   end
 
   def self.domestic_rankings
     domestic_rankings = {}
-    self.scrape_list(self.get_domestic_list).each do |t|
-       domestic_rankings[t.css("td[1]").text] = t.css("td[2] a b").text
-    end
+    scrape_list(self.get_domestic_list).each {|t| domestic_rankings[t.css("td[1]").text] = t.css("td[2] a b").text}
     5.times {domestic_rankings.shift}
     domestic_rankings
   end
 
   def self.worldwide_rankings
     worldwide_rankings = {}
-    self.scrape_list(self.get_worldwide_list).each do |t|
-       worldwide_rankings[t.css("td[1]").text] = t.css("td[2] a b").text
-    end
+    scrape_list(get_worldwide_list).each {|t| worldwide_rankings[t.css("td[1]").text] = t.css("td[2] a b").text}
     worldwide_rankings.shift
     worldwide_rankings
   end
-
 
   def self.set_attributes(movie, url)
     doc = Nokogiri::HTML(open(url))
@@ -48,7 +41,7 @@ class TopMoviesAllTime::Scraper
     movie.domestic_gross = doc.xpath('//font[contains(text(), "Domestic Total Gross")]').css("b").text
     movie.worldwide_gross = doc.css("div.mp_box_content table tr[4] td[2] b").text.split("Rank").first
     movie.adjusted_gross = adjusted_doc.xpath('//font[contains(text(), "Adj.")]').css("b").text
-    movie.tickets_sold = ticket_doc.xpath('//font[contains(text(), "Est. Tickets")]').css("b").text 
+    movie.tickets_sold = ticket_doc.xpath('//font[contains(text(), "Est. Tickets")]').css("b").text
   end
 
   def self.scrape_list(list)
@@ -56,16 +49,9 @@ class TopMoviesAllTime::Scraper
   end
 
   def self.make_movies
-    self.scrape_list(self.get_adjusted_list).each do |t|
-      TopMoviesAllTime::Movie.create_from_list(t)
-    end
-    self.scrape_list(self.get_domestic_list).each do |t|
-      TopMoviesAllTime::Movie.create_from_list(t)
-    end
-    self.scrape_list(self.get_worldwide_list).each do |t|
-      TopMoviesAllTime::Movie.create_from_list(t)
-    end
+    scrape_list(get_adjusted_list).each {|t|TopMoviesAllTime::Movie.create_from_list(t)}
+    scrape_list(get_domestic_list).each {|t| TopMoviesAllTime::Movie.create_from_list(t)}
+    scrape_list(get_worldwide_list).each {|t| TopMoviesAllTime::Movie.create_from_list(t)}
   end
-
 
 end
