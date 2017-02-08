@@ -4,23 +4,17 @@ This gem lists the top-grossing movies of all time by US box-office, US box-offi
 
 ## Installation
 
-Add this line to your application's Gemfile:
+I've had a great deal of trouble pushing this gem to rubygems.org. It *should* be possible to install a local version of the gem via the following steps:
 
-```ruby
-gem 'top_movies_all_time'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install top_movies_all_time
+1. run `bundle install`
+2. run `rake build`
+3. run `gem install pkg/top-movies-all-time-0.1.0.gem`
 
 ## Usage
 
-After installing the gem, enter `top-movies-all-time` and follow the onscreen prompts.
+If gem is installed, enter `top-movies-all-time` and follow the onscreen prompts.
+
+If gem is not installed, run `bin/top-movies-all-time` and follow the onscreen prompts.
 
 ## Development
 
