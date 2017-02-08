@@ -1,37 +1,34 @@
 class TopMoviesAllTime::Scraper
 
-  def self.get_domestic_list
-    Nokogiri::HTML(open("http://www.boxofficemojo.com/alltime/domestic.htm"))
-  end
-
-  def self.get_worldwide_list
-    Nokogiri::HTML(open("http://www.boxofficemojo.com/alltime/world/"))
-  end
-
-  def self.get_adjusted_list
-    Nokogiri::HTML(open("http://www.boxofficemojo.com/alltime/adjusted.htm"))
+  def self.get_lists
+    lists = {}
+    lists[:domestic] = Nokogiri::HTML(open("http://www.boxofficemojo.com/alltime/domestic.htm"))
+    lists[:adjusted] = Nokogiri::HTML(open("http://www.boxofficemojo.com/alltime/adjusted.htm"))
+    lists[:worldwide] = Nokogiri::HTML(open("http://www.boxofficemojo.com/alltime/world/"))
+    return lists
   end
 
   def self.adjusted_rankings
     adjusted_rankings = {}
-    scrape_list(get_adjusted_list).each {|t| adjusted_rankings[t.css("td[1]").text] = t.css("td[2] a b").text}
+    scrape_list(get_lists[:adjusted]).each {|t| adjusted_rankings[t.css("td[1]").text] = t.css("td[2] a b").text}
     adjusted_rankings.shift
     adjusted_rankings
   end
 
   def self.domestic_rankings
     domestic_rankings = {}
-    scrape_list(self.get_domestic_list).each {|t| domestic_rankings[t.css("td[1]").text] = t.css("td[2] a b").text}
+    scrape_list(get_lists[:domestic]).each {|t| domestic_rankings[t.css("td[1]").text] = t.css("td[2] a b").text}
     5.times {domestic_rankings.shift}
     domestic_rankings
   end
 
   def self.worldwide_rankings
     worldwide_rankings = {}
-    scrape_list(get_worldwide_list).each {|t| worldwide_rankings[t.css("td[1]").text] = t.css("td[2] a b").text}
+    scrape_list(get_lists[:worldwide]).each {|t| worldwide_rankings[t.css("td[1]").text] = t.css("td[2] a b").text}
     worldwide_rankings.shift
     worldwide_rankings
   end
+
 
   def self.set_attributes(movie, url)
     doc = Nokogiri::HTML(open(url))
@@ -49,9 +46,27 @@ class TopMoviesAllTime::Scraper
   end
 
   def self.make_movies
-    scrape_list(get_adjusted_list).each {|t|TopMoviesAllTime::Movie.create_from_list(t)}
-    scrape_list(get_domestic_list).each {|t| TopMoviesAllTime::Movie.create_from_list(t)}
-    scrape_list(get_worldwide_list).each {|t| TopMoviesAllTime::Movie.create_from_list(t)}
+    scrape_list(get_lists[:adjusted]).each {|t| find_or_create_movie(t)}
+    scrape_list(get_lists[:domestic]).each {|t| find_or_create_movie(t)}
+    scrape_list(get_lists[:worldwide]).each {|t| find_or_create_movie(t)}
   end
+
+  def self.find_or_create_movie(list)
+   unless TopMoviesAllTime::Movie.find_by_title(list.css("td[2] a b").text) != nil
+     TopMoviesAllTime::Movie.new(list.css("td[2] a b").text,
+       self.url_normalizer(list.css("td[2] a").attribute("href").value))
+    end
+  end
+
+  def self.url_normalizer(url)
+    if url.scan(/page=releases/) != []
+      "http://www.boxofficemojo.com#{url.split("releases").join("main")}"
+    else
+      "http://www.boxofficemojo.com#{url}"
+    end
+  end
+
+
+binding.pry
 
 end
